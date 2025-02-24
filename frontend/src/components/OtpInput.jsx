@@ -48,9 +48,10 @@ const OtpInput = ({ length = 4, onOtpSubmit = () => {} }) => {
   };
 
   return (
-    <div>
+    <div className="flex justify-center mt-6 space-x-3 ">
       {otp.map((value, index) => (
-        <input className='bg-blend-color-burn font-bold border rounded bg-green-600 '
+        // <div className=' flex justify-center mt-6 space-x-3'>
+        <input className='w-12 h-12 text-center text-xl border  border-lime-400 ring-2 ring-lime-600 outline-lime-600 rounded-md focus:outline-lime-500 focus:ring-2 focus:ring-lime-500 '
           key={index}
           type="text"
           ref={(input) => (inputRefs.current[index] = input)}
@@ -59,7 +60,7 @@ const OtpInput = ({ length = 4, onOtpSubmit = () => {} }) => {
           onClick={() => handleClick(index)}
           onKeyDown={(e) => handleKeyDown(index, e)}
         
-        />
+        /> 
       ))}
     </div>
   );
