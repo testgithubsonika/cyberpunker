@@ -11,7 +11,7 @@
 *.lib
 *.jpg
 *.dll
-*.py
+
 *.h 
 *.pyc
 *.json
