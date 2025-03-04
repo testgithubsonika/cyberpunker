@@ -1,0 +1,18 @@
+*.pyd filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.dll filter=lfs diff=lfs merge=lfs -text
+.own_confort
+*.zip
+.Papaya_Classification.zip
+.Papaya_Leaf.zip
+
+.papaya_dataset
+*.pyd  
+*.lib
+*.jpg
+*.dll
+*.py
+*.h 
+*.pyc
+*.json
+*.inc
