@@ -1,36 +1,35 @@
-name: Python Package using Conda
+name: Python package
 
 on: [push]
 
 jobs:
-  build-linux:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
-    - name: Add conda to system path
+        python-version: '3.8'
+
+    - name: Update conda
       run: |
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
-      run: |
+        conda update -n base -c defaults conda
         conda config --add channels conda-forge
-        conda env update --file .github/workflows/python-package-conda.yml --name base
-    - name: Lint with flake8
+        conda config --set channel_priority strict
+
+    - name: Install mamba
       run: |
-        conda install flake8 -c conda-forge
-        # stop the build if there are Python syntax errors or undefined names
+        conda install mamba -n base -c conda-forge
+
+    - name: Install dependencies using mamba
+      run: |
+        mamba install flake8 -c conda-forge
+        mamba install numpy -c conda-forge
+
+    - name: Run flake8
+      run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-        conda install numpy -c conda-forge
-        conda install -c conda-forge dbapi20
-    - name: Test with pytest
-      run: |
-        conda install pytest -c conda-forge
-        pytest
