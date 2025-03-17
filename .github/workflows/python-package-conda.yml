@@ -3,34 +3,37 @@ name: Python Package using Conda
 on: [push]
 
 jobs:
-  build-linux:
+  build-linuxThe job failed due to a `PackagesNotFoundError`, indicating:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 5
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@ that some packages could not be found in the channelsv4
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
-        python-version: '3.10'
+        python-version: being used. Specifically, the error occurred during '3.10'
     - name: Add conda to system path
       run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
-        conda env update --file .github/workflows/python-package-conda.yml --name base
+        con the `conda install` steps.
+
+### Solution
+
+1. **Ensureda config --add channels conda-forge
+        conda config --set channel_priority strict
+        conda Required Packages are Available:**
+   - Verify that install flake8 numpy dbapi20 -c conda-forge
     - name: Lint with flake8
       run: |
-        conda install flake8
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-         conda install numpy
-        conda install -c conda-forge dbapi20
-    - name: Test with pytest
+    the required packages (`flake8`, `numpy`, `dbapi20 - name: Test with pytest
       run: |
-        conda install pytest
+        conda install pytest -c conda-forge
         pytest
